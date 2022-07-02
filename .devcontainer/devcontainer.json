@@ -1,20 +1,23 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.238.0/containers/vue
 {
-	"name": "BlackBlock",
-	"build": {
-		"dockerfile": "Dockerfile",
-		// Update 'VARIANT' to pick a Node version: 12, 14, 16
-		"args": { "VARIANT": "16-bullseye" }
-	},
+  "name": "BlackBlock",
+  "build": {
+    "dockerfile": "./Dockerfile",
+    "args": {
+      "VARIANT": "16-bullseye"
+    }
+  },
+  "containerEnv": {
+    "DISPLAY": "host.docker.internal:0.0",
+    "LIBGL_ALWAYS_INDIRECT": "0"
+  },
   "settings": {
     "terminal.integrated.profiles.linux": {
-        "zsh": {
-            "path": "/bin/zsh"
-        }
+      "zsh": {
+        "path": "/bin/zsh"
+      }
     },
     "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
+      "source.fixAll.eslint": true
     },
     "workbench.iconTheme": "vscode-icons",
     "editor.tabSize": 2,
@@ -26,39 +29,19 @@
     "telemetry.telemetryLevel": "off",
     "editor.bracketPairColorization.enabled": true,
     "editor.guides.bracketPairs": "active"
-},
-"extensions": [
+  },
+  "extensions": [
     "dbaeumer.vscode-eslint",
     "vscode-icons-team.vscode-icons",
     "eamodio.gitlens",
     "esbenp.prettier-vscode",
     "gruntfuggly.todo-tree",
     "pflannery.vscode-versionlens",
-    "dsznajder.es7-react-js-snippets",
-    "mike-co.import-sorter",
-    "adpyke.codesnap",
-    "formulahendry.auto-rename-tag",
+    "Vue.volar",
+    "hollowtree.vue-snippets",
     "bradlc.vscode-tailwindcss",
-    "IronGeek.vscode-env"
-],
-	// Configure tool-specific properties.
-	"customizations": {
-		// Configure properties specific to VS Code.
-		"vscode": {
-			// Add the IDs of extensions you want installed when the container is created.
-			"extensions": [
-				"dbaeumer.vscode-eslint",
-				"octref.vetur"
-			]
-		}
-	},
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	//"forwardPorts": [ 8080 ],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "uname -a",
-
-	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "node"
+    "adpyke.codesnap",
+    "formulahendry.auto-rename-tag"
+  ],
+  "forwardPorts": [3000]
 }

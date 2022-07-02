@@ -1,10 +1,33 @@
-# [Choice] Node.js version (use -bullseye variants on local arm64/Apple Silicon): 18, 16, 14, 18-bullseye, 16-bullseye, 14-bullseye, 18-buster, 16-buster, 14-buster
-ARG VARIANT=${VARIANT}
-FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
+ARG VARIANT
+FROM node:${VARIANT}
 
-#RUN su node -c "umask 0002 && npm install -g http-server @vue/cli @vue/cli-service-global"
-#WORKDIR /app
+ARG DEBIAN_FRONTEND=noninteractive
 
-# [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+USER root
+
+RUN apt update && apt install -y curl wget git zip unzip less zsh apt-transport-https ca-certificates gnupg \
+    libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+
+# ----------------------------
+# Oh my zsh
+# ----------------------------
+RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)" -- \
+    -t robbyrussell \
+    -p git -p node -p npm
+
+ENV SHELL=/bin/zsh
+# ----------------------------
+
+# ----------------------------
+# SSH
+# ----------------------------
+WORKDIR /root
+RUN mkdir .ssh
+RUN touch .ssh/config
+RUN printf '\
+Host github.com \n\
+  IdentityFile ~/.ssh/id_ed25519 \n\
+' > .ssh/config
+
+RUN touch .ssh/id_ed25519
+# ----------------------------

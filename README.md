@@ -1,68 +1,98 @@
-# blackblock
+# Nuxt3 Template
 
-## Build Setup
+<p align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Nuxt_logo_%282021%29.svg" width="400" alt="Nuxt.js Logo" />
+</p>
+
+This is a [Nuxt.js](https://v3.nuxtjs.org/) project bootstrapped with [`nuxt-app`](https://v3.nuxtjs.org/getting-started/quick-start).
+
+---
+
+## INSTRUCTIONS
+
+Once you have this repo cloned to your local system, you will need to install the VSCode extension Remote Development, the ID of the extension is provided below:
+
+- `ms-vscode-remote.vscode-remote-extensionpack`
+
+Once installed, you can then run the following command in the command palette: `Remote-Containers: Open Folder in Container...`
+
+Note: If you restart the docker container for this app and then you open the container within VSCode, you will need to click on `File -> Open Folder` and then navigate to the path `/workspaces/nuxt3-template` and click the `OK` button to open the project folder.
+
+---
+
+## SSH GUIDE
+
+Follow the steps outlined on `Clickup`...
+
+---
+
+## INSTALLATION AND SETUP
 
 ```bash
-# install dependencies
+# Install the required libraries
 $ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+---
 
-## Special Directories
+## BUILDING
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+```bash
+$ yarn build
+```
 
-### `assets`
+---
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
+## UPDATING
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
+```bash
+# Update all libs
+$ yarn upgrade --latest
 
-### `components`
+## Update all libs interactively
+$ yarn upgrade-interactive --latest
+```
 
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
+---
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
+## RUNNING THE APP
 
-### `layouts`
+```bash
+# Run the app in dev mode
+$ yarn dev
 
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
+# Run the app in production mode
+$ yarn build
+$ yarn preview
+```
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+---
 
-### `pages`
+## RUNNING TESTS
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
+### Vitest
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
+```bash
+# Run tests
+$ yarn test
 
-### `plugins`
+# Run tests in watch mode, so making any changes will re-run any tests that have changed.
+$ yarn test:watch
 
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
+# Run tests and display a coverage report of all tests
+$ yarn test:coverage
+```
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
+### Cypress
 
-### `static`
+If using WSL on Windows, you will need to download an X-Server display app such as GWSL and OpenInWSL in order to be able to run cypress within it. This will also work inside of the devcontainer too.
 
-This directory contains your static files. Each file inside this directory is mapped to `/`.
+```bash
+# Run cypress tests in a GUI window.
+$ yarn cy:open
 
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
+# Run cypress in headless mode without a GUI.
+$ yarn cy:run
+```
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+---
