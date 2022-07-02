@@ -1,12 +1,15 @@
 <script setup lang="ts">
 const { data } = await useFetch("/api/hello");
 const config = useRuntimeConfig();
+definePageMeta({
+  layout: "default",
+});
 </script>
 
 <template>
-  <div class="h-full w-full p-4">
+  <div class="w-full p-4">
     <Head>
-      <Title>{{ config.public.appName }}</Title>
+      <Title>{{ config.public.appName }} - Home</Title>
       <Meta
         name="description"
         :content="`Welcome to ${config.public.appName}.`"
@@ -16,7 +19,7 @@ const config = useRuntimeConfig();
     <h1
       class="p-4 text-2xl text-center font-semibold text-[#f0ebe3] bg-[#1a1a1a]"
     >
-      Welcome to {{ config.public.appName }} with TailwindCSS v3!
+      Welcome to {{ config.public.appName }} with TailwindCSS v3! Joakaz
     </h1>
 
     <p
@@ -30,35 +33,10 @@ const config = useRuntimeConfig();
         Check out the different TailwindCSS v3 features:
       </h2>
 
-      <div
-        class="min-w-[30%] my-4 flex flex-col justify-evenly items-center gap-4"
-      >
+      <div class="my-4 flex flex-col justify-evenly items-center gap-4">
         <TailwindFeatureCard
           description="Dynamic CSS classes"
           :css-classes="['p-[1rem]', 'bg-[#1a1a1a]']"
-        />
-
-        <TailwindFeatureCard
-          description="Coloured box shadows"
-          :css-classes="[
-            'p-4',
-            'bg-blue-500',
-            'shadow-lg',
-            'shadow-blue-500/50',
-          ]"
-        />
-
-        <TailwindFeatureCard
-          description="Fancy underlines"
-          :css-classes="[
-            'text-lg',
-            'text-center',
-            'underline',
-            'decoration-indigo-500',
-            'decoration-wavy',
-            'decoration-2',
-          ]"
-          text="Wavy underline"
         />
       </div>
     </div>

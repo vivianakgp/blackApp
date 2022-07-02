@@ -14,3 +14,9 @@ body {
   height: 100%;
   width: 100%;
 }
+.content-block {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+.link-menu {
+  @apply block py-[1rem] px-3 text-sm font-extralight leading-5 border-b-2 border-transparent hover:border-orange-500 hover:bg-white hover:text-[#1a1a1a];
+}
