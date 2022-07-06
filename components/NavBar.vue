@@ -1,5 +1,39 @@
 <template>
-  <div class="w-full sticky top-0 z-20">
+  <div class="navBar">
+    <div class="header">
+      <div>
+        <h1>Frontend Mentor</h1>
+        <h3>Feedback Board</h3>
+      </div>
+      <div>
+        <!-- <img
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          src={`${isMenuOpen ? iconClose : iconHamburger}`}
+          alt="burgerIcon"
+        ></img> -->
+      </div>
+    </div>
+    <div class="container">
+      <div class="filterByCategory">
+        <span>All</span>
+        <span>UX</span>
+        <span>UI</span>
+        <span>Enhancement</span>
+        <span>Bug</span>
+        <span>Feature</span>
+      </div>
+      <div class="roadMap"></div>
+    </div>
+  </div>
+
+</template>
+
+<script setup lang="ts">
+const config = useRuntimeConfig();
+</script>
+
+
+  <!-- <div class="w-full sticky top-0 z-20">
     <div class="bg-[#1a1a1a] text-white font-light">
       <div class="content-block flex justify-between items-center">
         <button
@@ -58,9 +92,4 @@
         </div>
       </div>
     </div>
-  </div>
-</template>
-
-<script setup lang="ts">
-const config = useRuntimeConfig();
-</script>
+  </div> -->

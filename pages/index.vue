@@ -3,11 +3,15 @@ const { data } = await useFetch("/api/hello");
 const config = useRuntimeConfig();
 definePageMeta({
   layout: "default",
+  title:"blackBlock"
 });
 </script>
 
 <template>
-  <div class="w-full p-4">
+<div>
+  <h1>My first Nuxt app</h1>
+</div>
+  <!-- <div class="w-full p-4">
     <Head>
       <Title>{{ config.public.appName }} - Home</Title>
       <Meta
@@ -40,5 +44,6 @@ definePageMeta({
         />
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
+
