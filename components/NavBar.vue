@@ -1,6 +1,6 @@
 <template>
-  <div class="navBar">
-    <div class="header">
+  <div class="navBar ">
+    <div class="header h-20 w-full bg-red-300 relative">
       <div>
         <h1>Frontend Mentor</h1>
         <h3>Feedback Board</h3>
@@ -13,7 +13,7 @@
         ></img> -->
       </div>
     </div>
-    <div class="container">
+    <div class="container absolute">
       <div class="filterByCategory">
         <span>All</span>
         <span>UX</span>
@@ -22,7 +22,9 @@
         <span>Bug</span>
         <span>Feature</span>
       </div>
-      <div class="roadMap"></div>
+      <div class="roadMap">
+        <p>road map</p>
+      </div>
     </div>
   </div>
 

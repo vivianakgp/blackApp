@@ -1,5 +1,10 @@
-export default defineEventHandler((event) => {
-    return {
-      message: "hello world 3",
-    };
+
+import data from "../../data.json";
+
+export default  defineEventHandler((event) => {
+return {
+  productRequests:data.productRequests
+}
+
+
   });

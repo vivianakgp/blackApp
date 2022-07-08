@@ -1,16 +1,65 @@
+
 <script setup lang="ts">
-const { data } = await useFetch("/api/hello");
+
+const getData = async() => {
+if(localStorage.getItem("requestsList") !== null){
+  console.log("local storage is not null")
+  return  JSON.parse(localStorage.getItem("requestsList"));
+
+}else{
+  console.log("storage is null")
+  const { data } = await useFetch("/api/hello",{pick:["productRequests"]});
+  const requests = data.value.productRequests
+  localStorage.setItem("requestsList",JSON.stringify(requests))
+  return requests
+  
+}
+};
+
+
+const requestsList = await getData().then( res => {
+  return res
+}).catch((err)=>console.log(err))
+console.log(requestsList)
+
+
 const config = useRuntimeConfig();
 definePageMeta({
   layout: "default",
-  title:"blackBlock"
+  
 });
+
+
 </script>
 
 <template>
-<div>
-  <h1>My first Nuxt app</h1>
+<div class="Suggestion">
+      <div class="subMenu">
+          <div>
+            <div class="qtySuggestions">
+              <p>seggestion counter</p>
+            </div>
+            <div class="selectBox">
+              <p>select box</p>
+            </div>
+          </div>
+          <button class="btnAddFeedback">
+            Add Feedback
+          </button>
+      </div>
+      <div class="requestList">
+        <ProductRequest
+          v-for="request in requestsList"
+          :key="request.id"
+          :title="request.title"
+          :category="request.category"
+          :description="request.description"
+        />
+      </div>
 </div>
+
+</template>
+
   <!-- <div class="w-full p-4">
     <Head>
       <Title>{{ config.public.appName }} - Home</Title>
@@ -45,5 +94,4 @@ definePageMeta({
       </div>
     </div>
   </div> -->
-</template>
 
