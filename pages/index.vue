@@ -34,26 +34,43 @@ definePageMeta({
 
 <template>
 <div class="Suggestion">
-      <div class="subMenu">
-          <div>
-            <div class="qtySuggestions">
+      <Head>
+        <Title>{{ config.public.appName }} - Home</Title>
+        <Meta
+          name="description"
+          :content="`Welcome to ${config.public.appName}.`"
+        />
+      </Head>
+      <NavBar />
+      <div class="subMenu h-14 bg-[#373F68] flex items-center justify-between px-6 text-white md:rounded-xl md:h-20">
+          <div class="flex">
+            <div class="qtySuggestions bg-violet-400 hidden">
               <p>seggestion counter</p>
             </div>
-            <div class="selectBox">
+            <div class="selectBox bg-pink-400 relative px-1.5 font-bold">
               <p>select box</p>
             </div>
           </div>
-          <button class="btnAddFeedback">
+          <NuxtLink 
+            to="/feedback" 
+            class="btnAddFeedback flex items-center justify-center h-10 w-36 px-1 bg-[#AD1FEA] text-white font-semibold border-none rounded-md">
+            <img 
+            class="font-semibold mr-0.5"
+            src="~/assets/shared/icon-plus.svg" 
+            alt="icon-plus"
+            >
             Add Feedback
-          </button>
+          </NuxtLink>
       </div>
-      <div class="requestList">
+      <div class="requestList px-6 md:px-0">
         <ProductRequest
           v-for="request in requestsList"
           :key="request.id"
           :title="request.title"
-          :category="request.category"
           :description="request.description"
+          :category="request.category"
+          :upvotes="request.upvotes"
+          :comments="request.comments"
         />
       </div>
 </div>
@@ -69,7 +86,7 @@ definePageMeta({
       />
     </Head>
 
-    <h1
+    <h1   title="titulooooo"
       class="p-4 text-2xl text-center font-semibold text-[#f0ebe3] bg-[#1a1a1a]"
     >
       Welcome to {{ config.public.appName }} with TailwindCSS v3! Joakaz

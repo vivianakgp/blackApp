@@ -15,12 +15,11 @@ const props = defineProps<Props>();
       <p class="font-medium">CSS classes applied:</p>
       <pre>{{ cssClasses }}</pre>
     </div>
-
     <div class="mt-2">
       <div v-if="text == null" :class="cssClasses.join(' ')">
         <p v-if="text != null" :class="cssClasses.join(' ')">{{ text }}</p>
       </div>
       <p v-if="text != null" :class="cssClasses.join(' ')">{{ text }}</p>
     </div>
-  </div>
+</div>
 </template>

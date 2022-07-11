@@ -1,35 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
-.navBar {
-  background-color: rgb(112, 74, 121);
-}
 
-html,
-body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
-  font-family: "Poppins", sans-serif;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-#__nuxt {
-  height: 100%;
-  width: 100%;
-}
-
-.content-block {
-  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-}
-
-.link-menu {
-  @apply block py-[1rem] px-3 text-sm font-extralight leading-5 border-b-2 border-transparent hover:border-orange-500 hover:bg-white hover:text-[#1a1a1a];
-}
-
-/*# sourceMappingURL=tailwind.css.map */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

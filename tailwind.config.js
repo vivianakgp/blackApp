@@ -6,7 +6,11 @@ module.exports = {
     "./plugins/**/*.{js,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "submenu-blue": "#373F68",
+      },
+    },
   },
   plugins: [],
 };
