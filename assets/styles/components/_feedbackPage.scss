@@ -1,0 +1,34 @@
+.form {
+  min-width: 200px;
+  max-width: 540px;
+  input {
+    background-color: #f2f2f2;
+  }
+}
+.iconPlus {
+  background: radial-gradient(
+    128.88% 128.88% at 103.9% -10.39%,
+    #e84d70 0%,
+    #a337f6 53.09%,
+    #28a7ed 100%
+  );
+  width: 50px;
+  height: 50px;
+}
+
+.categoryList {
+  box-shadow: 0px 10px 40px -7px rgba(55, 63, 104, 0.350492);
+  > li {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 23px;
+    padding: 12px 0px 12px 20px;
+    border-bottom: 1px solid rgba(58, 67, 116, 0.5);
+  }
+  > li:nth-last-child(1) {
+    border-bottom: none;
+  }
+  > li:hover {
+    color: #ad1fea;
+  }
+}

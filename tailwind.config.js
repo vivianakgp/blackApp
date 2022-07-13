@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         "submenu-blue": "#373F68",
+        "text-color": "#3A4374",
       },
     },
   },
