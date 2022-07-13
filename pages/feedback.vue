@@ -1,9 +1,7 @@
 <script setup lang="ts">
 const config = useRuntimeConfig();
 //get data
-const productRequests = JSON.parse(localStorage.getItem("requestsList"));
-console.log("productRequests FORM localStorage: ", productRequests);
-
+const productRequests = JSON.parse(localStorage.getItem("ProductRequests"));
 //states
 const isSelectBoxOpen = useState("isSelectBoxOpen", () => false);
 const title = useState("title", () => "");
@@ -26,13 +24,11 @@ const setCategory = (e) => {
   console.log(category.value);
   setIsSelectBoxOpen();
 };
-
 //get last id + 1
 const generateId = () => {
   const requestIds = productRequests.map((elem) => elem.id);
   return Math.max(...requestIds) + 1;
 };
-// console.log("Last ID + 1: ", generateId());
 // reset new request values
 const clearForm = () => {
   title.value = "";
@@ -52,9 +48,9 @@ const createRequest = (e) => {
     // commnets:[]
   };
   productRequests.push(request);
-  localStorage.setItem("requestsList", JSON.stringify(productRequests));
+  localStorage.setItem("ProductRequests", JSON.stringify(productRequests));
   clearForm();
-  console.log(productRequests);
+  // console.log(productRequests);
 };
 </script>
 
@@ -80,7 +76,6 @@ const createRequest = (e) => {
       ref="feedbackForm"
       v-on:submit="createRequest"
     >
-      <!-- w-14 -->
       <button
         class="
           iconPlus

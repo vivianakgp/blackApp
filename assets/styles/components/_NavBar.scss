@@ -1,60 +1,46 @@
-
 // <div class="bg-[url('/what_a_rush.png')]">
 // <!-- ... -->
 // </div>
-.navBar{
-
- 
-    .header{
-  
-      // background-image: url('~assets/suggestions/illustration-empty.svg');
-      // background-size: cover;
-      // background-position: center center;
-      //background-color: rgb(69, 64, 86);
+.navBar {
+  .header {
+  }
+  .container {
+    .filterByCategory {
+      span {
+        display: inline-block;
+        padding: 12px;
+        margin: 8px;
+        background: #f2f4ff;
+        border-radius: 10px;
+        color: #4661e6;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.5s;
       }
-      .container{
-        .filterByCategory{
-          span{
-            display: inline-block;
-            padding: 12px;
-            margin: 8px;
-            background: #F2F4FF;
-            border-radius: 10px;
-            color: #4661E6;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background .5s;
-          }
-          span:hover{
-            background-color: #4661E6;
-            color: white;
-            
-          }
-        }
+      span:hover {
+        background-color: #4661e6;
+        color: white;
       }
-
+    }
+  }
 }
-@media only screen and(min-width:768px){
-  .navBar{
-
-    .header{
+@media only screen and(min-width:768px) {
+  .navBar {
+    .header {
       width: 30%;
     }
-    .container{
+    .container {
       visibility: visible;
       width: 70%;
-        .filterByCategory{
-          width: 45%;
-          margin: 0 5%;
-          span{
-          
-          }
+      .filterByCategory {
+        width: 45%;
+        margin: 0 5%;
+        span {
         }
-        .roadMap{
-          width: 45%;
-        }
+      }
+      .roadMap {
+        width: 45%;
+      }
     }
-
-}
-
+  }
 }
