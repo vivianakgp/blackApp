@@ -58,18 +58,20 @@ const createRequest = (e) => {
   <div class="p-6 text-[#3A4374]">
     <Head>
       <Title> - Feedback</Title>
-      <!-- <Meta
+      <!--<Meta
         name="description"
         :content="`Welcome to ${config.value.public.appName}.`"
-      /> -->
+      />-->
     </Head>
     <button class="flex items-center">
       <img
         src="~/assets/shared/icon-arrow-left.svg"
         alt="arrow-left"
-        class="mr-1"
+        class="mr-3"
       />
-      <NuxtLink to="/">Go Back</NuxtLink>
+      <NuxtLink to="/" class="text-sm font-semibold text-[#647196]"
+        >Go Back</NuxtLink
+      >
     </button>
     <form
       class="form rounded-xl bg-white mx-auto px-6 pb-12 mt-10"

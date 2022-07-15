@@ -26,6 +26,11 @@ body {
   // display: none;
   visibility: hidden;
 }
+// RequestComment
+.commentCard {
+  border-bottom: 1px solid #8c92b3c0;
+}
+// index.vue -submenu
 .ulSortList {
   box-shadow: 0px 10px 40px -7px rgba(55, 63, 104, 0.350492);
   > li {

@@ -92,7 +92,7 @@ const sortByLestComments = (e) => {
         <div class="selectBox relative px-1.5">
           <p class="text-xs inline-block">
             Sort by :
-            <span class="font-bold inline-block ml-0.5 mr-1">{{
+            <span class="font-semibold inline-block ml-0.5 mr-1">{{
               sortType
             }}</span>
           </p>
@@ -121,12 +121,13 @@ const sortByLestComments = (e) => {
           w-36
           px-1
           bg-[#AD1FEA]
-          text-white text-sm
-          font-semibold
+          text-white text-[13px]
+          font-medium
           border-none
           rounded-md
         "
       >
+        <!-- ~ -->
         <img
           class="font-semibold mr-0.5"
           src="~/assets/shared/icon-plus.svg"
@@ -139,6 +140,7 @@ const sortByLestComments = (e) => {
       <ProductRequest
         v-for="request in requestsList"
         :key="request.id"
+        :id="request.id"
         :title="request.title"
         :description="request.description"
         :category="request.category"

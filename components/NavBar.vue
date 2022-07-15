@@ -26,8 +26,8 @@ const setIsMenuOpen = () => {
       "
     >
       <div>
-        <h1 class="font-bold">Frontend Mentor</h1>
-        <h3 class="text-slate-200 text-[14px]">Feedback Board</h3>
+        <h1 class="font-semibold text-[15px]">Frontend Mentor</h1>
+        <h3 class="text-slate-200 text-[13px]">Feedback Board</h3>
       </div>
       <button
         @click="setIsMenuOpen"
