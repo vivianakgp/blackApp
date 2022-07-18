@@ -1,65 +1,43 @@
 <script setup lang="ts">
-const config = useRuntimeConfig();
-//get data
-const productRequests = JSON.parse(localStorage.getItem("ProductRequests"));
-console.log(productRequests);
+// data to edit
+const requestToEdit = useState("selectedRequest");
+// data from localStorage
+// const productRequests = useState("ProductRequests", () => [])
+// const data = async () => {
+//   return await JSON.parse(localStorage.getItem("ProductRequests"));
+// };
+// data().then(()=>{ productRequests})
 
+console.log("requestToEdit:", requestToEdit.value);
 //states
-const isSelectBoxOpen = useState("isSelectBoxOpen", () => false);
-const title = useState("title", () => "");
-const description = useState("description", () => "");
-const category = useState("category", () => "feature");
+const isSelectCategoryOpen = useState("isSelectCategoryOpen", () => false);
+const editCategory = useState("editCategory", () => "feature");
+const isSelectStatusOpen = useState("isSelectStatusOpen", () => false);
+const updateStatus = useState("updateStatus", () => "planned");
+const titleEdit = useState("titleEdit", () => requestToEdit[0]?.title);
+console.log("valor del titulo:", typeof requestToEdit.value[0].title);
+
 // set states
-const setIsSelectBoxOpen = () => {
-  isSelectBoxOpen.value = !isSelectBoxOpen.value;
+const setIsSelectCategoryOpen = () => {
+  isSelectCategoryOpen.value = !isSelectCategoryOpen.value;
 };
-const setTitle = (e) => {
-  title.value = e.target.value;
-  console.log(title.value);
+const setEditCategory = (e) => {
+  editCategory.value = e.target.id;
+  setIsSelectCategoryOpen();
 };
-const setDescription = (e) => {
-  description.value = e.target.value;
-  console.log(description.value);
+const setIsSelectStatusOpen = () => {
+  isSelectStatusOpen.value = !isSelectStatusOpen.value;
 };
-const setCategory = (e) => {
-  category.value = e.target.id;
-  console.log(category.value);
-  setIsSelectBoxOpen();
-};
-//get last id + 1
-const generateId = () => {
-  const requestIds = productRequests.map((elem) => elem.id);
-  return Math.max(...requestIds) + 1;
-};
-// reset new request values
-const clearForm = () => {
-  title.value = "";
-  description.value = "";
-  category.value = "feature";
-};
-// fn submit form
-const createRequest = (e) => {
-  e.preventDefault();
-  const request = {
-    id: generateId(),
-    title: title.value,
-    category: category.value,
-    upvotes: 0,
-    status: "suggestion",
-    description: description.value,
-    // commnets:[]
-  };
-  productRequests.push(request);
-  localStorage.setItem("ProductRequests", JSON.stringify(productRequests));
-  clearForm();
-  console.log(productRequests);
+const setUpdateStatus = (e) => {
+  updateStatus.value = e.target.id;
+  console.log(updateStatus.value);
+  setIsSelectStatusOpen();
 };
 </script>
-
 <template>
   <div class="p-6 text-[#3A4374]">
     <Head>
-      <Title> - Feedback</Title>
+      <Title> - Edit Feedback</Title>
       <!--<Meta
         name="description"
         :content="`Welcome to ${config.value.public.appName}.`"
@@ -78,7 +56,6 @@ const createRequest = (e) => {
     <form
       class="form rounded-xl bg-white mx-auto px-6 pb-12 mt-10"
       ref="feedbackForm"
-      v-on:submit="createRequest"
     >
       <button
         class="
@@ -97,7 +74,9 @@ const createRequest = (e) => {
           class="mr-1"
         />
       </button>
-      <h2 class="mb-8 font-semibold">Create New Feedback</h2>
+      <h2 class="mb-8 font-semibold">
+        Editing ‘{{ requestToEdit[0]?.title }}’
+      </h2>
       <div>
         <label for="title" class="font-semibold">Feedback Title</label>
         <p class="mb-4 mt-1 font-normal text-[#647196]">
@@ -118,8 +97,7 @@ const createRequest = (e) => {
           required
           autoCapitalize="on"
           autofocus
-          :value="title"
-          @change="setTitle"
+          :value="requestToEdit[0]?.title"
         />
       </div>
       <div class="my-10">
@@ -142,8 +120,8 @@ const createRequest = (e) => {
           "
         >
           <div class="flex justify-between items-center">
-            <p>{{ category }}</p>
-            <button type="button" @click="setIsSelectBoxOpen">
+            <p>{{ editCategory }}</p>
+            <button type="button" @click="setIsSelectCategoryOpen">
               <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M1 1l4 4 4-4"
@@ -166,7 +144,7 @@ const createRequest = (e) => {
               rounded-md
               bg-white
             "
-            :class="isSelectBoxOpen ? 'open' : 'close'"
+            :class="isSelectCategoryOpen ? 'open' : 'close'"
           >
             <li id="UI" @click="setCategory">UI</li>
             <li id="UX" @click="setCategory">UX</li>
@@ -176,6 +154,60 @@ const createRequest = (e) => {
           </ul>
         </div>
       </div>
+      <!-- update status -->
+      <div class="my-10">
+        <h4 class="font-semibold">Update Status</h4>
+        <p class="mb-3.5 mt-1 font-normal text-[#647196]">
+          Change feature state
+        </p>
+        <div
+          class="
+            relative
+            w-full
+            h-12
+            bg-[#F7F8FD]
+            mb-3.5
+            px-6
+            pt-3.5
+            rounded-md
+            border-none
+            font-normal
+          "
+        >
+          <div class="flex justify-between items-center">
+            <p>{{ updateStatus }}</p>
+            <button type="button" @click="setIsSelectStatusOpen">
+              <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M1 1l4 4 4-4"
+                  stroke="#4661E6"
+                  stroke-width="2"
+                  fill="none"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+          <ul
+            class="
+              categoryList
+              absolute
+              top-12
+              z-50
+              left-0
+              right-0
+              rounded-md
+              bg-white
+            "
+            :class="isSelectStatusOpen ? 'open' : 'close'"
+          >
+            <li id="Live" @click="setUpdateStatus">live</li>
+            <li id="In-Progress" @click="setUpdateStatus">in-progress</li>
+            <li id="Planned" @click="setUpdateStatus">planned</li>
+          </ul>
+        </div>
+      </div>
+      <!-- detail -->
       <div>
         <label for="description" class="font-semibold">Feedback Detail</label>
         <p class="mb-3.5 mt-1 font-normal text-[#647196]">
@@ -198,8 +230,7 @@ const createRequest = (e) => {
           required
           autoCapitalize="on"
           maxLength="250"
-          :value="description"
-          @change="setDescription"
+          :value="requestToEdit[0]?.description"
         />
       </div>
       <div class="containerBtn">
@@ -207,7 +238,7 @@ const createRequest = (e) => {
           type="submit"
           class="bg-[#AD1FEA] w-full my-2.5 h-11 text-white rounded-xl"
         >
-          Add Feedback
+          Save Changes
         </button>
         <span
           class="
@@ -219,11 +250,16 @@ const createRequest = (e) => {
             text-white
             rounded-xl
           "
-          @click="clearForm"
         >
           Cancel
         </span>
+        <button
+          type="submit"
+          class="bg-[#D73737] w-full my-2.5 h-11 text-white rounded-xl"
+        >
+          Delete
+        </button>
       </div>
     </form>
   </div>
-</template> 
+</template>

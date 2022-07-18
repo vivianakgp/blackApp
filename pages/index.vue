@@ -6,7 +6,7 @@ definePageMeta({
 });
 // states
 const isSelectOpen = useState("isSelectOpen", () => false);
-const requestsList = useState("requestsList", () => []);
+const suggestionRequests = useState("suggestionRequests", () => []);
 const sortType = useState("sortType", () => "Most Upvotes");
 
 const setIsSelectOpen = () => (isSelectOpen.value = !isSelectOpen.value);
@@ -30,32 +30,33 @@ const getData = async () => {
 // get data with status=suggestions
 getData()
   .then((res) => {
-    requestsList.value = res.filter(
+    suggestionRequests.value = res.filter(
       (request) => request.status === "suggestion"
     );
+    console.log(suggestionRequests.value);
   })
   .catch((err) => err);
-// sorts requestsList
+// sort suggestionRequests
 const sortByMostUpvotes = (e) => {
-  requestsList.value = requestsList.value.sort(
+  suggestionRequests.value = suggestionRequests.value.sort(
     (a, b) => b["upvotes"] - a["upvotes"]
   );
   setSortType(e);
 };
 const sortByLeastUpvotes = (e) => {
-  requestsList.value = requestsList.value.sort(
+  suggestionRequests.value = suggestionRequests.value.sort(
     (a, b) => a["upvotes"] - b["upvotes"]
   );
   setSortType(e);
 };
 const sortByMostComments = (e) => {
-  requestsList.value = requestsList.value.sort(
+  suggestionRequests.value = suggestionRequests.value.sort(
     (a, b) => b.comments?.length - a.comments?.length
   );
   setSortType(e);
 };
 const sortByLestComments = (e) => {
-  requestsList.value = requestsList.value.sort(
+  suggestionRequests.value = suggestionRequests.value.sort(
     (a, b) => a.comments?.length - b.comments?.length
   );
   setSortType(e);
@@ -138,7 +139,7 @@ const sortByLestComments = (e) => {
     </div>
     <div class="requestList px-6 pt-6 pb-7 md:px-0">
       <ProductRequest
-        v-for="request in requestsList"
+        v-for="request in suggestionRequests"
         :key="request.id"
         :id="request.id"
         :title="request.title"

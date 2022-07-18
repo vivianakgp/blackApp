@@ -4,7 +4,7 @@ interface Props {
   name: string;
   userName: string;
   content: string;
-  replies: [];
+  replies?: [];
 }
 
 const props = defineProps<Props>();
@@ -26,8 +26,8 @@ const props = defineProps<Props>();
       </p>
     </div>
     <!-- conditional render -->
-    <div v-if="replies != undefined" class="bg-[#F2F2F2]">
-      <div v-for="reply in replies" :key="reply">
+    <div v-if="replies != undefined" class="ml-4">
+      <div v-for="reply in replies" :key="reply" class="pl-3">
         <div class="relative flex items-center">
           <img
             :src="reply.user.image"
@@ -38,10 +38,13 @@ const props = defineProps<Props>();
             <h4 class="font-bold">{{ reply.user.name }}</h4>
             <h5>@{{ reply.user.username }}</h5>
           </div>
+          <button class="absolute right-0 text-[#4661E6] font-bold">
+            Reply
+          </button>
         </div>
-        <p>
-          <span>{{ reply.replyingTo }}</span
-          >{{ reply.content }}
+        <p class="leading-6 my-7">
+          <span class="text-[#AD1FEA]"> @{{ reply.replyingTo }}</span>
+          {{ reply.content }}
         </p>
       </div>
       <!-- for div -->

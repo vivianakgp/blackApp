@@ -6,6 +6,7 @@ const ID: number = +route.params.id;
 // state
 const selectedRequest = useState("selectedRequest", () => []);
 const requestComments = useState("requestComments", () => []);
+// testing edit
 
 // data from localStorage
 const data = async () => {
@@ -45,7 +46,7 @@ data()
         >
       </button>
       <NuxtLink
-        to="/feedback"
+        to="/editFeedback"
         class="
           btnAddFeedback
           flex
@@ -73,7 +74,7 @@ data()
         :description="request.description"
         :category="request.category"
         :upvotes="request.upvotes"
-        :comments="request.comments"
+        :comments="request?.comments"
       />
     </div>
     <div class="my-9 mx-auto p-6 bg-[#FFFFFF] text-sm rounded-xl">
@@ -85,7 +86,7 @@ data()
         :name="comment.user.name"
         :userName="comment.user.username"
         :content="comment.content"
-        :replies="comment.replies"
+        :replies="comment?.replies"
       />
     </div>
     <div>add comment</div>
