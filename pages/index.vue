@@ -33,7 +33,7 @@ getData()
     suggestionRequests.value = res.filter(
       (request) => request.status === "suggestion"
     );
-    console.log(suggestionRequests.value);
+    // console.log(suggestionRequests.value);
   })
   .catch((err) => err);
 // sort suggestionRequests

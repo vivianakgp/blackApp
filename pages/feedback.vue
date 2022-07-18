@@ -2,7 +2,7 @@
 const config = useRuntimeConfig();
 //get data
 const productRequests = JSON.parse(localStorage.getItem("ProductRequests"));
-console.log(productRequests);
+// console.log(productRequests);
 
 //states
 const isSelectBoxOpen = useState("isSelectBoxOpen", () => false);
@@ -15,15 +15,12 @@ const setIsSelectBoxOpen = () => {
 };
 const setTitle = (e) => {
   title.value = e.target.value;
-  console.log(title.value);
 };
 const setDescription = (e) => {
   description.value = e.target.value;
-  console.log(description.value);
 };
 const setCategory = (e) => {
   category.value = e.target.id;
-  console.log(category.value);
   setIsSelectBoxOpen();
 };
 //get last id + 1
@@ -52,7 +49,7 @@ const createRequest = (e) => {
   productRequests.push(request);
   localStorage.setItem("ProductRequests", JSON.stringify(productRequests));
   clearForm();
-  console.log(productRequests);
+  // console.log(productRequests);
 };
 </script>
 

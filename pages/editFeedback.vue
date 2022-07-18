@@ -1,38 +1,101 @@
 <script setup lang="ts">
 // data to edit
-const requestToEdit = useState("selectedRequest");
-// data from localStorage
-// const productRequests = useState("ProductRequests", () => [])
-// const data = async () => {
-//   return await JSON.parse(localStorage.getItem("ProductRequests"));
-// };
-// data().then(()=>{ productRequests})
+//const requestToEditchido = useState("selectedRequest");
+// state of inputs
+// const editTitle = useState("editTitle", () => requestToEdit.value[0].title);
+// const editCategory = useState(
+//   "editCategory",
+//   () => requestToEdit.value[0].category
+// );
+// const updateStatus = useState("updateStatus", () => "planned");
+// const editDescription = useState(
+//   "editDescription",
+//   () => requestToEdit.value[0].description
+// );
 
-console.log("requestToEdit:", requestToEdit.value);
+// data
+let requestToEdit = [];
+let productRequest = [];
+const data = async () => {
+  return await JSON.parse(localStorage.getItem("ProductRequests"));
+};
+data()
+  .then((res) => {
+    productRequest = res;
+    // console.log("Data desde localstorage", productRequest);
+  })
+  .then(() => {
+    requestToEdit = useState("selectedRequest");
+    // console.log("request para editar:", requestToEdit.value);
+  })
+  .then(() => {
+    // set state of inputs
+    editTitle.value = requestToEdit.value[0]?.title;
+    editCategory.value = requestToEdit.value[0].category;
+    editDescription.value = requestToEdit.value[0]?.description;
+  });
+
 //states
 const isSelectCategoryOpen = useState("isSelectCategoryOpen", () => false);
-const editCategory = useState("editCategory", () => "feature");
 const isSelectStatusOpen = useState("isSelectStatusOpen", () => false);
-const updateStatus = useState("updateStatus", () => "planned");
-const titleEdit = useState("titleEdit", () => requestToEdit[0]?.title);
-console.log("valor del titulo:", typeof requestToEdit.value[0].title);
+// state of inputs
+const editTitle = useState("editTitle", () => "");
+const editCategory = useState("editCategory", () => "");
+const updateStatus = useState("updateStatus", () => "suggestion");
+const editDescription = useState("editDescription", () => "");
 
 // set states
 const setIsSelectCategoryOpen = () => {
   isSelectCategoryOpen.value = !isSelectCategoryOpen.value;
 };
+const setIsSelectStatusOpen = () => {
+  isSelectStatusOpen.value = !isSelectStatusOpen.value;
+};
+// set state of inputs
+const setEditTitle = (e) => {
+  editTitle.value = e.target.value;
+};
 const setEditCategory = (e) => {
   editCategory.value = e.target.id;
   setIsSelectCategoryOpen();
 };
-const setIsSelectStatusOpen = () => {
-  isSelectStatusOpen.value = !isSelectStatusOpen.value;
-};
 const setUpdateStatus = (e) => {
   updateStatus.value = e.target.id;
-  console.log(updateStatus.value);
   setIsSelectStatusOpen();
 };
+const setEditDescription = (e) => {
+  editDescription.value = e.target.value;
+};
+// reset inputs
+const resetForm = () => {
+  editTitle.value = "";
+  editCategory.value = "";
+  editDescription.value = "";
+};
+// edit request
+const editRequest = (e) => {
+  e.preventDefault();
+  const updateRequest = productRequest.find((request) => {
+    return request.id === requestToEdit.value[0].id;
+  });
+  updateRequest.title = editTitle.value;
+  updateRequest.category = editCategory.value;
+  updateRequest.status = updateStatus.value;
+  updateRequest.description = editDescription.value;
+  console.log("Data desde localstorage editada:", productRequest);
+  // save in local again
+  localStorage.setItem("ProductRequests", JSON.stringify(productRequest));
+  resetForm();
+};
+// delete request
+const deleteRequest = () => {
+  const newProductRequests = productRequest.filter((request) => {
+    return request.id !== requestToEdit.value[0].id;
+  });
+  localStorage.setItem("ProductRequests", JSON.stringify(newProductRequests));
+  resetForm();
+};
+// console.log(productRequest);
 </script>
 <template>
   <div class="p-6 text-[#3A4374]">
@@ -56,6 +119,7 @@ const setUpdateStatus = (e) => {
     <form
       class="form rounded-xl bg-white mx-auto px-6 pb-12 mt-10"
       ref="feedbackForm"
+      v-on:submit="editRequest"
     >
       <button
         class="
@@ -74,9 +138,7 @@ const setUpdateStatus = (e) => {
           class="mr-1"
         />
       </button>
-      <h2 class="mb-8 font-semibold">
-        Editing ‘{{ requestToEdit[0]?.title }}’
-      </h2>
+      <h2 class="mb-8 font-semibold">Editing ‘{{ editTitle }}’</h2>
       <div>
         <label for="title" class="font-semibold">Feedback Title</label>
         <p class="mb-4 mt-1 font-normal text-[#647196]">
@@ -97,7 +159,8 @@ const setUpdateStatus = (e) => {
           required
           autoCapitalize="on"
           autofocus
-          :value="requestToEdit[0]?.title"
+          :value="editTitle"
+          @change="setEditTitle"
         />
       </div>
       <div class="my-10">
@@ -146,11 +209,11 @@ const setUpdateStatus = (e) => {
             "
             :class="isSelectCategoryOpen ? 'open' : 'close'"
           >
-            <li id="UI" @click="setCategory">UI</li>
-            <li id="UX" @click="setCategory">UX</li>
-            <li id="Enhancement" @click="setCategory">enhancement</li>
-            <li id="Bug" @click="setCategory">bug</li>
-            <li id="Feature" @click="setCategory">feature</li>
+            <li id="UI" @click="setEditCategory">UI</li>
+            <li id="UX" @click="setEditCategory">UX</li>
+            <li id="Enhancement" @click="setEditCategory">enhancement</li>
+            <li id="Bug" @click="setEditCategory">bug</li>
+            <li id="Feature" @click="setEditCategory">feature</li>
           </ul>
         </div>
       </div>
@@ -230,7 +293,8 @@ const setUpdateStatus = (e) => {
           required
           autoCapitalize="on"
           maxLength="250"
-          :value="requestToEdit[0]?.description"
+          :value="editDescription"
+          @change="setEditDescription"
         />
       </div>
       <div class="containerBtn">
@@ -254,8 +318,9 @@ const setUpdateStatus = (e) => {
           Cancel
         </span>
         <button
-          type="submit"
+          type="button"
           class="bg-[#D73737] w-full my-2.5 h-11 text-white rounded-xl"
+          @click="deleteRequest"
         >
           Delete
         </button>

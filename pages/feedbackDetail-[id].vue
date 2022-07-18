@@ -16,11 +16,10 @@ const data = async () => {
 data()
   .then((res) => {
     selectedRequest.value = res.filter((request) => request.id === ID);
-    console.log(selectedRequest.value);
+    // console.log(selectedRequest.value);
   })
   .then(() => {
     requestComments.value = selectedRequest.value[0].comments;
-    console.log(requestComments.value);
   });
 
 //onMounted(() => {});
@@ -78,7 +77,7 @@ data()
       />
     </div>
     <div class="my-9 mx-auto p-6 bg-[#FFFFFF] text-sm rounded-xl">
-      <h3 class="font-bold text-lg">{{ requestComments.length }} Comments</h3>
+      <h3 class="font-bold text-lg">{{ requestComments?.length }} Comments</h3>
       <RequestComments
         v-for="comment in requestComments"
         :key="comment.id"
