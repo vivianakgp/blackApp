@@ -5,10 +5,12 @@ definePageMeta({
   layout: "default",
 });
 // states
-const isSelectOpen = useState("isSelectOpen", () => false);
+const isMenuOpen = useState("isMenuOpen", () => false);
+const dataProductRequests = useState("dataProductRequests", () => []);
 const suggestionRequests = useState("suggestionRequests", () => []);
+const isSelectOpen = useState("isSelectOpen", () => false);
 const sortType = useState("sortType", () => "Most Upvotes");
-
+// set states
 const setIsSelectOpen = () => (isSelectOpen.value = !isSelectOpen.value);
 const setSortType = (e) => {
   sortType.value = e.target.outerText;
@@ -17,8 +19,10 @@ const setSortType = (e) => {
 // get data and save to localStorage
 const getData = async () => {
   if (localStorage.getItem("ProductRequests") !== null) {
+    console.log("no es null hay algo en local");
     return JSON.parse(localStorage.getItem("ProductRequests"));
   } else {
+    console.log("es null local vacio");
     const { data } = await useFetch("/api/hello", {
       pick: ["productRequests"],
     });
@@ -30,12 +34,39 @@ const getData = async () => {
 // get data with status=suggestions
 getData()
   .then((res) => {
-    suggestionRequests.value = res.filter(
-      (request) => request.status === "suggestion"
-    );
+    dataProductRequests.value = res;
+    requestsWithStatusSuggestion();
+    // suggestionRequests.value = res.filter(
+    //   (request) => request.status === "suggestion"
+    // );
     // console.log(suggestionRequests.value);
   })
   .catch((err) => err);
+// only requests with suggestion status
+const requestsWithStatusSuggestion = () => {
+  suggestionRequests.value = dataProductRequests.value.filter((request) => {
+    return request.status === "suggestion";
+  });
+};
+// set isMenuOpen
+const setIsMenuOpen = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+};
+
+//suggestionRequests state filter by category-runs from navbar
+function filterByCategory(e) {
+  requestsWithStatusSuggestion();
+  suggestionRequests.value = suggestionRequests.value.filter((req) => {
+    return req.category === e.target.id;
+  });
+  setIsMenuOpen();
+}
+// all suggestion requests and close menu
+const getAllRequest = () => {
+  requestsWithStatusSuggestion();
+  setIsMenuOpen();
+};
+
 // sort suggestionRequests
 const sortByMostUpvotes = (e) => {
   suggestionRequests.value = suggestionRequests.value.sort(
@@ -72,7 +103,12 @@ const sortByLestComments = (e) => {
         :content="`Welcome to ${config.public.appName}.`"
       />
     </Head>
-    <NavBar />
+    <NavBar
+      :filterByCategory="filterByCategory"
+      :isMenuOpen="isMenuOpen"
+      :setIsMenuOpen="setIsMenuOpen"
+      :all="getAllRequest"
+    />
     <div
       class="
         subMenu
@@ -128,7 +164,6 @@ const sortByLestComments = (e) => {
           rounded-md
         "
       >
-        <!-- ~ -->
         <img
           class="font-semibold mr-0.5"
           src="~/assets/shared/icon-plus.svg"
@@ -138,6 +173,47 @@ const sortByLestComments = (e) => {
       </NuxtLink>
     </div>
     <div class="requestList px-6 pt-6 pb-7 md:px-0">
+      <div
+        v-if="suggestionRequests.length === 0"
+        class="bg-white flex flex-col items-center px-9 py-20 rounded-xl"
+      >
+        <img
+          src="~/assets/suggestions/illustration-empty.svg"
+          alt="illustration-empty"
+          class="mb-10"
+        />
+        <h3 class="text-[#3A4374] text-lg font-semibold mb-4">
+          There is no feedback yet.
+        </h3>
+        <p class="text-center font-normal text-[#647196] mb-4">
+          Got a suggestion? Found a bug that needs to be squashed? We love
+          hearing about new ideas to improve our app.
+        </p>
+        <NuxtLink
+          to="/feedback"
+          class="
+            btnAddFeedback
+            flex
+            items-center
+            justify-center
+            h-10
+            w-36
+            px-1
+            bg-[#AD1FEA]
+            text-white text-[13px]
+            font-medium
+            border-none
+            rounded-md
+          "
+        >
+          <img
+            class="font-semibold mr-0.5"
+            src="~/assets/shared/icon-plus.svg"
+            alt="icon-plus"
+          />
+          Add Feedback
+        </NuxtLink>
+      </div>
       <ProductRequest
         v-for="request in suggestionRequests"
         :key="request.id"

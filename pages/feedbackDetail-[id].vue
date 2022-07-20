@@ -6,7 +6,6 @@ const ID: number = +route.params.id;
 // state
 const selectedRequest = useState("selectedRequest", () => []);
 const requestComments = useState("requestComments", () => []);
-// testing edit
 
 // data from localStorage
 const data = async () => {
@@ -21,8 +20,6 @@ data()
   .then(() => {
     requestComments.value = selectedRequest.value[0].comments;
   });
-
-//onMounted(() => {});
 </script>
 <template>
   <div class="p-6 text-[#3A4374]">

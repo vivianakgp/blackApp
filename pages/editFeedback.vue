@@ -1,32 +1,16 @@
 <script setup lang="ts">
-// data to edit
-//const requestToEditchido = useState("selectedRequest");
-// state of inputs
-// const editTitle = useState("editTitle", () => requestToEdit.value[0].title);
-// const editCategory = useState(
-//   "editCategory",
-//   () => requestToEdit.value[0].category
-// );
-// const updateStatus = useState("updateStatus", () => "planned");
-// const editDescription = useState(
-//   "editDescription",
-//   () => requestToEdit.value[0].description
-// );
-
 // data
-let requestToEdit = [];
+const requestToEdit = useState("selectedRequest");
+console.log("request para editar:", requestToEdit.value);
 let productRequest = [];
-const data = async () => {
+
+const Data = async () => {
   return await JSON.parse(localStorage.getItem("ProductRequests"));
 };
-data()
+Data()
   .then((res) => {
     productRequest = res;
-    // console.log("Data desde localstorage", productRequest);
-  })
-  .then(() => {
-    requestToEdit = useState("selectedRequest");
-    // console.log("request para editar:", requestToEdit.value);
+    console.log("Data desde localstorage", productRequest);
   })
   .then(() => {
     // set state of inputs
@@ -96,6 +80,7 @@ const deleteRequest = () => {
   resetForm();
 };
 // console.log(productRequest);
+const router = useRouter();
 </script>
 <template>
   <div class="p-6 text-[#3A4374]">
@@ -106,15 +91,16 @@ const deleteRequest = () => {
         :content="`Welcome to ${config.value.public.appName}.`"
       />-->
     </Head>
-    <button class="flex items-center">
+    <button
+      class="flex items-center text-sm font-semibold text-[#647196]"
+      @click="router.go(-1)"
+    >
       <img
         src="~/assets/shared/icon-arrow-left.svg"
         alt="arrow-left"
         class="mr-3"
       />
-      <NuxtLink to="/" class="text-sm font-semibold text-[#647196]"
-        >Go Back</NuxtLink
-      >
+      go back
     </button>
     <form
       class="form rounded-xl bg-white mx-auto px-6 pb-12 mt-10"

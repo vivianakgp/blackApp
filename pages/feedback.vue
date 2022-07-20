@@ -2,7 +2,7 @@
 const config = useRuntimeConfig();
 //get data
 const productRequests = JSON.parse(localStorage.getItem("ProductRequests"));
-// console.log(productRequests);
+console.log(productRequests);
 
 //states
 const isSelectBoxOpen = useState("isSelectBoxOpen", () => false);

@@ -1,12 +1,17 @@
 <script setup lang="ts">
 const config = useRuntimeConfig();
+interface Props {
+  filterByCategory: any;
+  isMenuOpen: boolean;
+  setIsMenuOpen: any;
+  all: any;
+}
+const props = defineProps<Props>();
 
-const isMenuOpen = useState("isMenuOpen", () => false);
-const setIsMenuOpen = () => {
-  isMenuOpen.value = !isMenuOpen.value;
-};
-// const options = reactive({});
-// definePageMeta({});
+// const isMenuOpen = useState("isMenuOpen", () => false);
+// const setIsMenuOpen = () => {
+//   isMenuOpen.value = !isMenuOpen.value;
+// };
 </script>
 
 <template>
@@ -74,12 +79,12 @@ const setIsMenuOpen = () => {
           md:p-0 md:m-0 md:h-full
         "
       >
-        <span>All</span>
-        <span>UX</span>
-        <span>UI</span>
-        <span>Enhancement</span>
-        <span>Bug</span>
-        <span>Feature</span>
+        <span @click="all">All</span>
+        <span id="UX" @click="filterByCategory">UX</span>
+        <span id="UI" @click="filterByCategory">UI</span>
+        <span id="enhancement" @click="filterByCategory">Enhancement</span>
+        <span id="bug" @click="filterByCategory">Bug</span>
+        <span id="feature" @click="filterByCategory">Feature</span>
       </div>
       <div
         class="
