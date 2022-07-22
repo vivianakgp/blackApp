@@ -1,5 +1,20 @@
 <script setup lang="ts">
 const config = useRuntimeConfig();
+// data from a status in index.vue
+const data = await useState("dataProductRequests");
+const allRequests = [];
+allRequests.push(data.value);
+// status planned,inProgress,live
+const planned = allRequests[0].filter((req) => {
+  return req.status === "planned";
+});
+const inProgress = allRequests[0].filter((req) => {
+  return req.status === "in-progress";
+});
+const live = allRequests[0].filter((req) => {
+  return req.status === "live";
+});
+
 interface Props {
   filterByCategory: any;
   isMenuOpen: boolean;
@@ -7,15 +22,10 @@ interface Props {
   all: any;
 }
 const props = defineProps<Props>();
-
-// const isMenuOpen = useState("isMenuOpen", () => false);
-// const setIsMenuOpen = () => {
-//   isMenuOpen.value = !isMenuOpen.value;
-// };
 </script>
 
 <template>
-  <div class="navBar md:flex md:items-center md:my-8 md:h-48">
+  <div class="navBar sm:flex sm:items-center sm:my-8 sm:h-48">
     <div
       class="
         relative
@@ -27,7 +37,11 @@ const props = defineProps<Props>();
         bg-cover
         bg-center
         text-white
-        md:items-end md:h-full md:rounded-md md:pb-6
+        sm:items-end
+        sm:h-full
+        sm:rounded-md
+        sm:pb-6
+        sm:bg-[url('../assets/suggestions/tablet/background-header.png')]
       "
     >
       <div>
@@ -37,7 +51,7 @@ const props = defineProps<Props>();
       <button
         @click="setIsMenuOpen"
         type="button"
-        class="absolute right-6 md:hidden"
+        class="absolute right-6 sm:hidden"
       >
         <svg width="20" height="17" xmlns="http://www.w3.org/2000/svg">
           <g fill="#FFF" fill-rule="evenodd">
@@ -58,14 +72,18 @@ const props = defineProps<Props>();
         bg-zinc-100
         absolute
         z-50
+        pt-4
+        pb-20
         top-[72px]
         right-0
         h-full
         w-80
-        md:relative md:top-0 md:flex md:items-center md:bg-transparent
+        overflow-scroll
+        sm:relative sm:top-0 sm:flex sm:items-center sm:overflow-hidden sm:p-0
       "
       :class="isMenuOpen ? 'open' : 'close'"
     >
+      <!-- sm:bg-transparent -->
       <div
         class="
           filterByCategory
@@ -76,7 +94,7 @@ const props = defineProps<Props>();
           rounded-md
           p-6
           text-center
-          md:p-0 md:m-0 md:h-full
+          sm:p-0 sm:m-0 sm:h-full
         "
       >
         <span @click="all">All</span>
@@ -91,13 +109,47 @@ const props = defineProps<Props>();
           roadMap
           bg-white
           mx-auto
-          mt-8
+          my-8
           w-4/5
           rounded-md
           p-6
-          md:p-0 md:m-0 md:h-full
+          sm:m-0 sm:h-full
         "
-      ></div>
+      >
+        <div class="flex justify-between mb-6">
+          <h3 class="text-[#3A4374] font-semibold text-[18px]">Roadmap</h3>
+          <NuxtLink to="/roadMap" class="text-[#4661E6] underline font-medium"
+            >View</NuxtLink
+          >
+        </div>
+        <div class="flex justify-between text-[#647196]">
+          <p>
+            <span
+              class="inline-block mr-2 w-2 h-2 rounded-full bg-[#F49F85]"
+            ></span
+            >Planned
+          </p>
+          <span class="block font-semibold">{{ planned.length }}</span>
+        </div>
+        <div class="flex justify-between text-[#647196]">
+          <p>
+            <span
+              class="inline-block mr-2 w-2 h-2 rounded-full bg-[#AD1FEA]"
+            ></span
+            >In-Progress
+          </p>
+          <span class="block font-semibold">{{ inProgress.length }}</span>
+        </div>
+        <div class="flex justify-between text-[#647196]">
+          <p>
+            <span
+              class="inline-block mr-2 w-2 h-2 rounded-full bg-[#62BCFA]"
+            ></span
+            >Live
+          </p>
+          <span class="block font-semibold">{{ live.length }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>

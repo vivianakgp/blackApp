@@ -20,6 +20,9 @@ data()
   .then(() => {
     requestComments.value = selectedRequest.value[0].comments;
   });
+const addComment = (e) => {
+  console.log(e.target.value);
+};
 </script>
 <template>
   <div class="p-6 text-[#3A4374]">
@@ -85,6 +88,33 @@ data()
         :replies="comment?.replies"
       />
     </div>
-    <div>add comment</div>
+    <div class="my-9 mx-auto px-6 py-12 bg-[#FFFFFF] text-sm rounded-xl">
+      <h3 class="text-[#3A4374] text-lg font-semibold">Add Comment</h3>
+      <textarea
+        name="addCommnet"
+        id="addCommnet"
+        cols="30"
+        rows="10"
+        placeholder="Type your comment here"
+        class="text-[#8C92B3] bg-[#F7F8FD] rounded-md h-20 w-full p-5 my-10"
+      ></textarea>
+      <div class="flex justify-between">
+        <p class="text-[#647196]">250 Characters left</p>
+        <button
+          class="
+            h-[40px]
+            w-[130px]
+            text-[#F2F4FE]
+            bg-[#AD1FEA]
+            rounded-xl
+            font-semibold
+          "
+          @click="addComment"
+        >
+          Post Comment
+        </button>
+      </div>
+    </div>
   </div>
 </template>
+//  Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis sunt esse sapiente voluptatem nihil cumque eligendi dicta quaerat cupiditate numquam id dignissimos, quisquam iusto sed corrupti impedit reprehenderit atque enim dolor totam rerum mollitia est! Vel numquam adipisci magnam dicta dolorem, doloremque eos vitae, voluptas quas quo nemo, epudiandae sunt quod perferendis nesciunt nam minima corrupti deleniti labore? 

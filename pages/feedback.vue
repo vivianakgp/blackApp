@@ -199,10 +199,18 @@ const createRequest = (e) => {
           @change="setDescription"
         />
       </div>
-      <div class="containerBtn">
+      <div class="containerBtn sm:flex sm:flex-row-reverse sm:items-center">
         <button
           type="submit"
-          class="bg-[#AD1FEA] w-full my-2.5 h-11 text-white rounded-xl"
+          class="
+            bg-[#AD1FEA]
+            w-full
+            my-2.5
+            h-11
+            text-white
+            rounded-xl
+            sm:w-auto sm:px-4 sm:ml-4
+          "
         >
           Add Feedback
         </button>
@@ -215,6 +223,7 @@ const createRequest = (e) => {
             h-11
             text-white
             rounded-xl
+            sm:w-auto sm:px-4
           "
           @click="clearForm"
         >

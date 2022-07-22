@@ -1,10 +1,8 @@
-// <div class="bg-[url('/what_a_rush.png')]">
-// <!-- ... -->
-// </div>
 .navBar {
   .header {
   }
   .container {
+    // overflow: scroll;
     .filterByCategory {
       span {
         display: inline-block;
@@ -13,7 +11,7 @@
         background: #f2f4ff;
         border-radius: 10px;
         color: #4661e6;
-        font-weight: 600;
+        font-weight: 500;
         cursor: pointer;
         transition: background 0.5s;
       }
@@ -24,7 +22,7 @@
     }
   }
 }
-@media only screen and(min-width:768px) {
+@media only screen and(min-width:620px) {
   .navBar {
     .header {
       width: 30%;

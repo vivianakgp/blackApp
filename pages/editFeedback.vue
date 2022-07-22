@@ -283,33 +283,59 @@ const router = useRouter();
           @change="setEditDescription"
         />
       </div>
-      <div class="containerBtn">
+      <div
+        class="
+          containerBtn
+          flex flex-col-reverse
+          sm:flex-row sm:justify-between sm:items-center
+        "
+      >
         <button
-          type="submit"
-          class="bg-[#AD1FEA] w-full my-2.5 h-11 text-white rounded-xl"
-        >
-          Save Changes
-        </button>
-        <span
+          type="button"
           class="
-            bg-[#3A4374]
-            flex
-            items-center
-            justify-center
+            bg-[#D73737]
+            w-full
+            my-2.5
             h-11
             text-white
             rounded-xl
+            sm:w-auto sm:px-6
           "
-        >
-          Cancel
-        </span>
-        <button
-          type="button"
-          class="bg-[#D73737] w-full my-2.5 h-11 text-white rounded-xl"
           @click="deleteRequest"
         >
           Delete
         </button>
+        <div class="flex flex-col-reverse sm:flex-row sm:items-center">
+          <button
+            class="
+              bg-[#3A4374]
+              flex
+              items-center
+              justify-center
+              w-full
+              h-11
+              text-white
+              rounded-xl
+              sm:w-auto sm:px-6 sm:mr-3
+            "
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="
+              bg-[#AD1FEA]
+              w-full
+              my-2.5
+              h-11
+              text-white
+              rounded-xl
+              sm:w-auto sm:px-6
+            "
+          >
+            Save Changes
+          </button>
+        </div>
       </div>
     </form>
   </div>
